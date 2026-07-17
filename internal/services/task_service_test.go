@@ -3,19 +3,20 @@ package services
 import (
 	"testing"
 
+	"task-management-api/internal/repository"
 	"task-management-api/internal/storage"
 )
 
-func setupService() *TaskService {
+func setupService() (*TaskService, repository.TaskRepository) {
 	store := storage.NewMemoryStore()
-	return NewTaskService(store)
+	return NewTaskService(store), store
 }
 
 func TestSupervisorCanCreateTask(t *testing.T) {
 
-	service := setupService()
+	service, repo := setupService()
 
-	supervisor, _ := service.store.GetUser(1)
+	supervisor, _ := repo.GetUser(1)
 
 	task, err := service.CreateTask(
 		"Write README",
@@ -38,9 +39,9 @@ func TestSupervisorCanCreateTask(t *testing.T) {
 
 func TestWorkerCannotCreateTask(t *testing.T) {
 
-	service := setupService()
+	service, repo := setupService()
 
-	worker, _ := service.store.GetUser(2)
+	worker, _ := repo.GetUser(2)
 
 	_, err := service.CreateTask(
 		"Illegal Task",
@@ -55,9 +56,9 @@ func TestWorkerCannotCreateTask(t *testing.T) {
 
 func TestAssignTask(t *testing.T) {
 
-	service := setupService()
+	service, repo := setupService()
 
-	supervisor, _ := service.store.GetUser(1)
+	supervisor, _ := repo.GetUser(1)
 
 	task, _ := service.CreateTask(
 		"Task",
@@ -86,10 +87,10 @@ func TestAssignTask(t *testing.T) {
 
 func TestInvalidTransition(t *testing.T) {
 
-	service := setupService()
+	service, repo := setupService()
 
-	supervisor, _ := service.store.GetUser(1)
-	worker, _ := service.store.GetUser(2)
+	supervisor, _ := repo.GetUser(1)
+	worker, _ := repo.GetUser(2)
 
 	task, _ := service.CreateTask(
 		"Task",
@@ -116,10 +117,10 @@ func TestInvalidTransition(t *testing.T) {
 
 func TestCompleteWorkflow(t *testing.T) {
 
-	service := setupService()
+	service, repo := setupService()
 
-	supervisor, _ := service.store.GetUser(1)
-	worker, _ := service.store.GetUser(2)
+	supervisor, _ := repo.GetUser(1)
+	worker, _ := repo.GetUser(2)
 
 	task, _ := service.CreateTask(
 		"Task",
