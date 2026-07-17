@@ -1,57 +1,5 @@
 # Task Management API
 
-A backend REST API for managing tasks with role-based authorization, built in Go.
-
-This project was developed as a take-home assessment for a Software Engineer II position.
-
----
-
-# Features
-
-- REST API
-- Role-based authorization
-- Forward-only task lifecycle
-- In-memory storage
-- Notification logging and persistence
-- Unit tests
-- Clean project structure
-
----
-
-# Tech Stack
-
-- Go
-- Gorilla Mux
-- Standard Library
-- In-memory repository
-
----
-
-# Project Structure
-
-```
-task-management-api/
-
-cmd/
-    api/
-        main.go
-
-internal/
-    handlers/
-    middleware/
-    models/
-    repository/
-    services/
-    storage/
-
-tests/
-
-go.mod
-README.md
-```
-
----
-
 # Setup
 
 ## Clone
@@ -101,22 +49,6 @@ Example:
 ```
 X-User-Id: 2
 ```
-
----
-
-# Task Lifecycle
-
-```
-CREATED
-    ↓
-ASSIGNED
-    ↓
-IN_PROGRESS
-    ↓
-COMPLETED
-```
-
-Status transitions are forward-only.
 
 ---
 
@@ -222,7 +154,7 @@ Worker only.
 Run all tests:
 
 ```bash
-go test ./...
+go test ./internal/services
 ```
 
 ---
@@ -261,25 +193,3 @@ The assessment uses an in-memory implementation.
 This can later be replaced with PostgreSQL or another database by implementing the repository interface.
 
 ---
-
-# Future Improvements
-
-Given more time, the following improvements could be added:
-
-- PostgreSQL persistence
-- Database migrations
-- JWT authentication
-- Docker support
-- OpenAPI / Swagger documentation
-- Structured logging
-- Configuration using environment variables
-- Pagination
-- Request logging middleware
-- Integration tests
-- CI/CD pipeline
-
----
-
-# Author
-
-<Your Name>
