@@ -193,3 +193,21 @@ The assessment uses an in-memory implementation.
 This can later be replaced with PostgreSQL or another database by implementing the repository interface.
 
 ---
+
+# Future Improvements
+
+These are some features that could be added in the future:
+
+- Database persistence
+- Database migrations
+- JWT authentication
+- Docker support
+- OpenAPI / Swagger documentation
+- Structured logging
+- Configuration using environment variables
+- Pagination
+- Request logging middleware
+- Integration tests
+- CI/CD pipeline
+
+---
